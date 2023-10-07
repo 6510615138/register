@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>Subject</h1>
+<ul>
+{% for subject in subjects_list %}
+    <li>{{subject.code}} {{subject.title}} {{subject.seat}}/{{subject.seat_max}}</li>
+{% endfor %}
+</ul>
+{% endblock %}
