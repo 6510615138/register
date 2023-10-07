@@ -37,3 +37,6 @@ class Subject(models.Model):
 
     def __str__(self):
         return f"Subject: {self.title} GP: ({self.gp}) Seat: ({self.seat})/({self.seat_max})"
+
+    def get_subject_code(self):
+        return self.code
