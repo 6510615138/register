@@ -1,42 +1,39 @@
 from django import forms
 from django.forms import ValidationError
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
-class settings :
-    USE_REMEMBER_ME=True
-class SignIn(forms.Form):
-    password = forms.CharField(label="password",max_length=25)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        #if settings.USE_REMEMBER_ME:
-        self.fields['remember_me'] = forms.BooleanField(label=_('Remember me'), required=False)
-    
-
-    def clean_password(self):
-        password = self.cleaned_data['password']
-
-        if not self.user_cache:
-            return password
-
-        if not self.user_cache.check_password(password):
-            raise ValidationError(_('You entered an invalid password.'))
-
-        return password
 
     
-class SignInViaUsernameForm(SignIn):
-    username = forms.CharField(label="text",max_length=25)
+class SignInViaUsernameForm(forms.Form):
+    username = forms.CharField(label=_('Username'), max_length=25)
+    password = forms.CharField(label=_('Password'), max_length=25, widget=forms.PasswordInput)
+    remember_me = forms.BooleanField(label=_('Remember me'), required=False)
 
-    def clean_username(self):
-        username = self.cleaned_data['username']
+    def clean(self):
+        cleaned_data = super().clean()
+        username = cleaned_data.get('username')
+        password = cleaned_data.get('password')
 
-        user = User.objects.filter(username=username).first()
-        if not user:
-                raise ValidationError(_('You entered an invalid username.'))
+        if username and password:
+            user = authenticate(username=username, password=password)
+
+            if user is None:
+                raise ValidationError(_('Invalid username or password.'))
+            elif not user.is_active:
+                raise ValidationError(_('This account is inactive.'))
+            else:
+                self.user_cache = user
+                
+
+    def login(self, request):
+        if hasattr(self, 'user_cache'):
+            login(request, self.user_cache)
+            messages.success(request,"login success!")
+    
+
+        
 
 
-        self.user_cache = user
-
-        return username
     
