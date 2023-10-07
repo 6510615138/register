@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import SignInViaUsernameForm
+from django.contrib.auth import logout
 
 
 def getUsername(request):
@@ -14,3 +15,7 @@ def getUsername(request):
         form = SignInViaUsernameForm()
 
     return render(request,'login.html',{"form":form})
+
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('subject')

@@ -32,6 +32,9 @@ class SignInViaUsernameForm(forms.Form):
             login(request, self.user_cache)
             messages.success(request,"login success!")
     
+    def logout(self,request):
+        logout(request)   
+        messages.success(request,"You are loged out!") 
 
         
 
