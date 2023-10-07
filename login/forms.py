@@ -1,6 +1,5 @@
 from django import forms
 from django.forms import ValidationError
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
