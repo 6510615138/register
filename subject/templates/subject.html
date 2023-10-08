@@ -1,16 +1,9 @@
 {% extends "layout.html" %}
 {% block body %}
-
-{% if user.is_authenticated %}
-<h3>Hi {{username}}<h3>
-<a href='/logout'>Logout<a>
 <h1>Subject</h1>
 <ul>
 {% for subject in subjects_list %}
     <li>{{subject.code}} {{subject.title}} {{subject.seat}}/{{subject.seat_max}}</li>
 {% endfor %}
 </ul>
-{% else %}
-    <a href='/'>Login<a>
-{%endif%}
 {% endblock %}
