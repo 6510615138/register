@@ -1,6 +1,9 @@
 {% extends 'layout.html' %}
+{% block title %}
+Sign up
+{% endblock %}
 {% block body %}
-    <h2>Login</h2>
+    <h2>Sign up</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.non_field_errors }}
@@ -10,16 +13,20 @@
             {{ form.username.errors }}
         </div>
         <div class="fieldWrapper">
+            {{ form.email.label_tag }}<br>
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+        <div class="fieldWrapper">
             {{ form.password.label_tag }}<br>
             {{ form.password }}
             {{ form.password.errors }}
         </div>
         <div class="fieldWrapper">
-            {{ form.remember_me }}
-            {{ form.remember_me.label_tag }}
+            {{ form.password2.label_tag }}<br>
+            {{ form.password2 }}
+            {{ form.password2.errors }}
         </div>
-        <input type="submit" value="Login">
+        <input type="submit" value="CreateUser">
     </form>
-    <br>
-    <label>No account? Sign up <a href="/signup">Here.</a></label>
 {%endblock%}

@@ -5,11 +5,13 @@ from django.contrib.auth import logout
 
 
 def getUsername(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('subject')
     if request.method == 'POST':
         form = SignInViaUsernameForm(request.POST)
         if form.is_valid():
             form.login(request,)
-            return HttpResponseRedirect("subject/")
+            return HttpResponseRedirect("/subject")
     else:
         
         form = SignInViaUsernameForm()
@@ -18,4 +20,4 @@ def getUsername(request):
 
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect('subject')
+    return HttpResponseRedirect('/login')
