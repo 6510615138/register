@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'student',
     'subject',
     'login',
+    'createuser',
 ]
 
 MIDDLEWARE = [

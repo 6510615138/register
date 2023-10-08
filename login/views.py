@@ -11,7 +11,7 @@ def getUsername(request):
         form = SignInViaUsernameForm(request.POST)
         if form.is_valid():
             form.login(request,)
-            return HttpResponseRedirect("subject/")
+            return HttpResponseRedirect("/subject")
     else:
         
         form = SignInViaUsernameForm()
@@ -20,4 +20,4 @@ def getUsername(request):
 
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect('subject')
+    return HttpResponseRedirect('/login')

@@ -2,7 +2,7 @@
 {% block body %}
 
 {% if user.is_authenticated %}
-<h3>Hi {{username}}<h3>
+<h3>Hi {{user.username}} !<h3>
 <a href='/logout'>Logout<a>
 <h1>Subject</h1>
 <ul>
@@ -11,6 +11,6 @@
 {% endfor %}
 </ul>
 {% else %}
-    <a href='/'>Login<a>
+    <a href='/login'>Login<a>
 {%endif%}
 {% endblock %}
