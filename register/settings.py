@@ -10,19 +10,23 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
+import sys
 from pathlib import Path
-from loadenv import load_env
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+sys.path.append("..")
 BASE_DIR = Path(__file__).resolve().parent.parent
+from dotenv import load_dotenv
 
+load_dotenv('.env')
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
+env = load_dotenv('.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-env = load_env('.env')
-SECRET_KEY = env["GOLDEN_APPLE"]
+
+SECRET_KEY = os.environ.get("GOLDEN_APPLE")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
