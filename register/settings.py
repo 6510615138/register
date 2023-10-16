@@ -12,24 +12,30 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 import sys
 from pathlib import Path
+
+#append working directory to sys.path
 sys.path.append("..")
 BASE_DIR = Path(__file__).resolve().parent.parent
 from dotenv import load_dotenv
 
-load_dotenv('.env')
+
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-
-env = load_dotenv('.env')
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.environ.get("GOLDEN_APPLE")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if not DEBUG:
+    #required '.env' in working directory
+    #load virtual environments variable in ../.env
+    load_dotenv('.env')
+    SECRET_KEY = os.environ.get("GOLDEN_APPLE")
+else:
+    SECRET_KEY = "SOMETHING_TO_DO_WITH_APPLE_JUST_A_MADE_UP_SECRET_KEY"
 
 ALLOWED_HOSTS = ['*']
 
